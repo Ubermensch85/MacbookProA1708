@@ -1,0 +1,41 @@
+# Maintainer: Chris Osgood <chris_github@functionalfuture.com>
+
+_pkgbase=applesmc-next
+pkgname=${_pkgbase}-dkms
+pkgver=0.1.6
+pkgrel=1
+pkgdesc='Updated applesmc driver with charge threshold'
+arch=('x86_64')
+url='https://gurumeditation.org/1256/applesmc-next-battery-charge-thresholds-for-linux-on-apple-hardware/'
+license=('GPL2')
+depends=('dkms')
+optdepends=('tlp: battery charge threshold support')
+makedepends=()
+provides=('APPLESMC-MODULE' 'SBS-MODULE')
+
+source=(
+   "https://github.com/c---/applesmc-next/archive/refs/tags/${pkgver}.tar.gz"
+   "applesmc-next-clean.patch"
+)
+
+sha256sums=(
+   '9b7868841bf04facd6c29bc6d0c192f5fbd19e0f72e0d9dd9ba11b64701240e8'
+   'SKIP'
+)
+
+prepare() {
+   cd "${_pkgbase}-${pkgver}"
+   patch -p1 -i "${srcdir}/applesmc-next-clean.patch"
+}
+
+package() {
+   (cd "${_pkgbase}-${pkgver}"/applesmc && make TARGET="${pkgdir}/usr/src/${_pkgbase}-${pkgver}/applesmc" srcinstall)
+
+   install -Dm644 "${_pkgbase}-${pkgver}"/dkms.conf "${pkgdir}/usr/src/${_pkgbase}-${pkgver}/"
+   install -Dm644 "${_pkgbase}-${pkgver}"/Makefile "${pkgdir}/usr/src/${_pkgbase}-${pkgver}/"
+
+   sed -i -e "s/@PKGNAME@/${pkgname}/" \
+       -e "s/@_PKGBASE@/${_pkgbase}/" \
+       -e "s/@PKGVER@/${pkgver}/" \
+       "${pkgdir}"/usr/src/${_pkgbase}-${pkgver}/dkms.conf
+}

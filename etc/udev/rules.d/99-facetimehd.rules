@@ -1,0 +1,1 @@
+ACTION=="add", SUBSYSTEM=="video4linux", ATTR{name}=="FaceTime HD Camera", RUN+="/usr/bin/v4l2-ctl -d $devnode --set-ctrl=white_balance_automatic=0 --set-ctrl=brightness=160 --set-ctrl=contrast=145 --set-ctrl=saturation=140"

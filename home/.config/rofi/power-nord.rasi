@@ -1,0 +1,62 @@
+/*
+** Nord Power Rofi Theme - Aligned with Top Waybar
+*/
+
+* {
+    background-color:     transparent;
+    text-color:           #D8DEE9;
+    font:                 "JetBrainsMono Nerd Font Bold 10";
+}
+
+window {
+    anchor:     north;
+    location:   north west;
+    width:      26%;
+    height:     34;
+    padding:    0;
+    children:   [ horibox ];
+    y-offset:   46px;
+    x-offset:   6px;
+    background-color: #2E3440;
+    border: 2px;
+    border-color: #BF616A;
+    border-radius: 8px;
+}
+
+horibox {
+    orientation: horizontal;
+    children:   [ prompt, listview ];
+    background-color: #2E3440;
+}
+
+listview {
+    layout:     horizontal;
+    spacing:    12px;
+    lines:      4;
+    padding:    8 0 0 10;
+    background-color: #2E3440;
+}
+
+element {
+    padding: 0 6px;
+    background-color: #2E3440;
+    border-radius: 4px;
+}
+
+element selected {
+    text-color:       #2E3440;
+    background-color: #BF616A;
+}
+
+element-text, element-icon {
+    background-color: inherit;
+    text-color:       inherit;
+    highlight:        bold;
+}
+
+prompt {
+    background-color: #BF616A;
+    text-color:       #2E3440;
+    padding:          8 10 0 10;
+    font:             "JetBrainsMono Nerd Font Bold 10";
+}

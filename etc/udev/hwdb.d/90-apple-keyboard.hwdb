@@ -1,0 +1,3 @@
+# Rimappatura tastiera Apple MacBook Pro A1708: Fn diventa Control
+evdev:name:Apple SPI Keyboard:dmi:*:*
+ KEYBOARD_KEY_464=leftctrl

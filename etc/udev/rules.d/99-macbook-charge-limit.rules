@@ -1,0 +1,2 @@
+# Re-apply charge limit when power source changes
+ACTION=="change", SUBSYSTEM=="power_supply", RUN+="/home/ubermensch/scripts/set-charge-limit.sh"

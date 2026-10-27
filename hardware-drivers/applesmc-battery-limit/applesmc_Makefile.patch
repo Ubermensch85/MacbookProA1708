@@ -1,0 +1,10 @@
+--- src/applesmc-next-0.1.6/applesmc/Makefile	2025-07-17 19:52:00.000000000 +0200
++++ /home/ubermensch/applesmc_Makefile.modified	2026-07-10 14:31:39.758111866 +0200
+@@ -4,7 +4,6 @@
+ KVER       ?= `uname -r`
+ KBASE      ?= /lib/modules/$(KVER)
+ KBUILD_DIR ?= $(KBASE)/build
+-ccflags-y  := -I$(M)/sbs
+ 
+ all:
+ 	make -C $(KBUILD_DIR) M=`pwd`

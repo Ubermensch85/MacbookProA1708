@@ -1,0 +1,68 @@
+/*
+** Nord Rofi Theme - Main Launcher Aligned with Bottom Bar
+*/
+
+* {
+    background-color:     transparent;
+    text-color:           #d8dee9;
+    font:                 "JetBrains Mono Bold 10";
+}
+
+window {
+    anchor:     south;
+    location:   south west;
+    width:      40%;             /* Ridotto per coerenza visiva */
+    height:     34;
+    padding:    0;
+    children:   [ horibox ];
+    y-offset:   -38px;           /* Sopra la barra (34+4) */
+    x-offset:   8px;             /* Allineato al margine sinistro */
+    background-color: #2e3440;
+    border: 2px;
+    border-color: #88c0d0;
+}
+
+horibox {
+    orientation: horizontal;
+    children:   [ prompt, entry, listview ];
+    background-color: #2e3440;
+}
+
+entry {
+    expand:     false;
+    width:      8em;
+    padding:    8 0 0 8;
+    text-color: #d8dee9;
+    background-color: #2e3440;
+}
+
+listview {
+    layout:     horizontal;
+    spacing:    15px;
+    lines:      50;
+    padding:    8 0 0;
+    background-color: #2e3440;
+}
+
+element {
+    padding: 0 8px;
+    background-color: #2e3440;
+}
+
+element selected {
+    text-color:       #2e3440;
+    background-color: #88c0d0;
+}
+
+element-text, element-icon {
+    background-color: inherit;
+    text-color:       inherit;
+    highlight:        bold;
+}
+
+prompt {
+    background-color: #81a1c1;
+    text-color:       #2e3440;
+    padding:          8 12 0 12;
+    font:             "JetBrains Mono Bold 10";
+}

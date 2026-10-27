@@ -1,0 +1,11 @@
+[Unit]
+Description=Set MacBook Battery Charge Limit from TLP Config
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/ubermensch/scripts/set-charge-limit.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

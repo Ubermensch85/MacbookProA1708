@@ -1,0 +1,10 @@
+# /etc/fstab
+
+# Root on NVMe (ext4) - senza discard (usa fstrim.timer)
+UUID=e447945d-9538-42bf-89bb-868209dedaad  /      ext4  rw,noatime,lazytime,commit=60  0  1
+
+# EFI System Partition (vfat) - montata in /boot
+UUID=998C-DEEE  /boot  vfat  rw,noatime,fmask=0022,dmask=0022,utf8,shortname=mixed,errors=remount-ro  0  2
+
+# Firefox cache su tmpfs (riduce I/O su NVMe)
+tmpfs  /home/ubermensch/.cache/mozilla/firefox  tmpfs  size=512M,noatime,mode=700,uid=1000,gid=1000  0  0

@@ -1,0 +1,124 @@
+{
+    "name": "topbar",
+    "layer": "top",
+    "position": "top",
+    "height": 34,
+    "margin-top": 6,
+    "margin-left": 6,
+    "margin-right": 6,
+    "margin-bottom": 6,
+    "spacing": 4,
+    "modules-left": [
+        "custom/arch",
+	"custom/pacman",
+        "hyprland/workspaces",
+	"cpu",
+        "memory",
+        "disk",
+        "temperature"
+    ],
+    "modules-center": [
+        "custom/weather"
+    ],
+    "modules-right": [
+        "backlight",
+        "custom/gammastep",
+        "pulseaudio",
+        "network",
+        "battery",
+	"clock"
+    ],
+    "hyprland/workspaces": {
+        "format": "{name}",
+        "on-click": "activate"
+    },
+    "custom/arch": {
+        "format": "<span size='large'>󰣇</span> ",
+        "tooltip": "Clicca per system info",
+        "on-click": "exec ~/.config/waybar/arch-script.sh"
+    },
+    "custom/pacman": {
+        "format": "<span size='large'>󰮯</span> {}",
+        "interval": 1800,
+        "exec": "checkupdates 2>/dev/null | wc -l | tr -d '\n' || echo 0",
+        "exec-if": "which checkupdates",
+        "on-click": "kitty --title fly-foot-write /home/ubermensch/.config/waybar/scripts/update_system.sh",
+        "signal": 8
+    },
+    "disk": {
+        "interval": 30,
+        "format": "SSD {percentage_used}%",
+        "path": "/",
+        "on-click": "xdg-open /"
+    },
+    "clock": {
+        "format": "{:%H:%M}",
+        "tooltip-format": "<tt>{calendar}</tt>",
+        "calendar": {
+            "mode": "month",
+            "on-scroll": 1,
+            "format": {
+                "months": "<span color='#fffffe'><b>{}</b></span>",
+                "days": "<span color='#efefef'><b>{}</b></span>",
+                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+                "today": "<span color='#88C0D0'><b><u>{}</u></b></span>"
+            }
+        }
+    },
+    "cpu": {
+        "format": "[CPU {usage}%",
+        "on-click": "kitty --title fly-foot-tiled -e htop"
+    },
+    "memory": {
+        "format": "RAM {}%"
+    },
+    "custom/weather": {
+        "format": "{}",
+        "tooltip": true,
+        "interval": 3600,
+        "exec": "~/.config/waybar/script/weather.sh",
+        "return-type": "json"
+    },
+    "temperature": {
+        "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        "format": "TEMP {temperatureC}°C]"
+    },
+    "backlight": {
+        "format": "<span font_family='Symbols Nerd Font' size='large'>{icon}</span> {percent}%",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "tooltip-format": "Luminosità: {percent}%",
+        "on-scroll-up": "brightnessctl set 5%+",
+        "on-scroll-down": "brightnessctl set 5%-"
+    },
+    "battery": {
+        "states": {
+            "warning": 18,
+            "critical": 5
+        },
+        "format": "<span font_family='Symbols Nerd Font' size='large'>{icon}</span>  {capacity}%",
+        "format-charging": "  {capacity}%",
+        "format-plugged": "  {capacity}%",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "network": {
+        "format": "<span font_family='Symbols Nerd Font' size='large'></span>",
+        "on-click": "networkmanager_dmenu"
+    },
+    "pulseaudio": {
+        "scroll-step": 5,
+        "format": "<span font_family='Symbols Nerd Font' size='large'>{icon}</span> {volume}%",
+        "format-icons": {
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol",
+        "on-click-right": "pamixer -t"
+    },
+    "custom/gammastep": {
+        "format": "{}",
+        "interval": 60,
+        "exec": "$HOME/scripts/gammastep.sh",
+        "on-click": "bash $HOME/scripts/gammastep.sh toggle",
+        "signal": 9
+    }
+}

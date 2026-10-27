@@ -1,0 +1,137 @@
+--- a/applesmc/applesmc.c	2025-07-17 19:52:00.000000000 +0200
++++ b/applesmc/applesmc.c
+@@ -39,9 +39,6 @@
+ #include <linux/err.h>
+ #include <linux/bits.h>
+ 
+-#include <acpi/battery.h>
+-#include <acpi/sbs.h>
+-
+ /* data port used by Apple SMC */
+ #define APPLESMC_DATA_PORT	0x300
+ /* command/status port used by Apple SMC */
+@@ -1277,73 +1274,30 @@
+ 					dev, attr, sysfsbuf, count);
+ }
+ 
+-static DEVICE_ATTR_RO(charge_control_start_threshold);
+-static DEVICE_ATTR_RW(charge_control_end_threshold);
+-static DEVICE_ATTR_RW(charge_control_full_threshold);
+-
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(6,2,0)
+-static int applesmc_battery_add(struct power_supply *battery, struct acpi_battery_hook* hook)
+-#else
+-static int applesmc_battery_add(struct power_supply *battery)
+-#endif
++static ssize_t charge_limit_show(struct device *dev,
++				struct device_attribute *attr, char *sysfsbuf)
+ {
+-	pr_debug("Battery added: %s\n", battery->desc->name);
+-
+-	if (device_create_file(&battery->dev,
+-	    &dev_attr_charge_control_start_threshold))
+-		goto out;
+-
+-	if (device_create_file(&battery->dev,
+-	    &dev_attr_charge_control_end_threshold))
+-		goto out_start;
+-
+-	if (device_create_file(&battery->dev,
+-	    &dev_attr_charge_control_full_threshold))
+-		goto out_end;
+-
+-	return 0;
+-
+-out_end:
+-	device_remove_file(&battery->dev,
+-			&dev_attr_charge_control_end_threshold);
+-out_start:
+-	device_remove_file(&battery->dev,
+-			&dev_attr_charge_control_start_threshold);
+-out:
+-	return -ENODEV;
++	return applesmc_percent_show(CHARGE_END_KEY, dev, attr, sysfsbuf);
+ }
+ 
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(6,2,0)
+-static int applesmc_battery_remove(struct power_supply *battery, struct acpi_battery_hook* hook)
+-#else
+-static int applesmc_battery_remove(struct power_supply *battery)
+-#endif
++static ssize_t charge_limit_store(struct device *dev,
++	struct device_attribute *attr, const char *sysfsbuf, size_t count)
+ {
+-	pr_debug("Battery removed: %s\n", battery->desc->name);
+-
+-	device_remove_file(&battery->dev,
+-			&dev_attr_charge_control_full_threshold);
+-	device_remove_file(&battery->dev,
+-			&dev_attr_charge_control_end_threshold);
+-	device_remove_file(&battery->dev,
+-			&dev_attr_charge_control_start_threshold);
+-	return 0;
++	return applesmc_percent_store(CHARGE_END_KEY, dev, attr, sysfsbuf, count);
+ }
+ 
+-static struct acpi_battery_hook battery_hook = {
+-	.add_battery = applesmc_battery_add,
+-	.remove_battery = applesmc_battery_remove,
+-	.name = "AppleSMC Battery Charge Extension",
+-};
++static DEVICE_ATTR_RW(charge_limit);
+ 
+ static void applesmc_battery_init(void)
+ {
+-	sbs_hook_register(&battery_hook);
++	int ret = device_create_file(&pdev->dev, &dev_attr_charge_limit);
++	if (ret)
++		pr_warn("failed to create charge_limit sysfs file!\n");
+ }
+ 
+ static void applesmc_battery_exit(void)
+ {
+-	sbs_hook_unregister(&battery_hook);
++	device_remove_file(&pdev->dev, &dev_attr_charge_limit);
+ }
+ 
+ /* Create accelerometer resources */
+
+--- a/dkms.conf	2025-07-17 19:52:00.000000000 +0200
++++ b/dkms.conf
+@@ -7,8 +7,4 @@
+ BUILT_MODULE_LOCATION[0]="applesmc"
+ DEST_MODULE_LOCATION[0]="/updates"
+ 
+-BUILT_MODULE_NAME[1]="sbs"
+-BUILT_MODULE_LOCATION[1]="sbs"
+-DEST_MODULE_LOCATION[1]="/updates"
+-
+ AUTOINSTALL="yes"
+
+--- a/Makefile	2025-07-17 19:52:00.000000000 +0200
++++ b/Makefile
+@@ -1,6 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0-or-later
+ 
+-obj-y      := applesmc/ sbs/
++obj-y      := applesmc/
+ KVER       ?= `uname -r`
+ KBASE      ?= /lib/modules/$(KVER)
+ KBUILD_DIR ?= $(KBASE)/build
+@@ -10,5 +10,4 @@
+ 
+ clean:
+ 	cd applesmc && make clean
+-	cd sbs && make clean
+ 	rm -f modules.order Module.symvers .modules.order.cmd .Module.symvers.cmd
+
+--- a/applesmc/Makefile	2025-07-17 19:52:00.000000000 +0200
++++ b/applesmc/Makefile
+@@ -4,7 +4,6 @@
+ KVER       ?= `uname -r`
+ KBASE      ?= /lib/modules/$(KVER)
+ KBUILD_DIR ?= $(KBASE)/build
+-ccflags-y  := -I$(M)/sbs
+ 
+ all:
+ 	make -C $(KBUILD_DIR) M=`pwd`

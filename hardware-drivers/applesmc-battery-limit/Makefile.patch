@@ -1,0 +1,16 @@
+--- src/applesmc-next-0.1.6/Makefile	2025-07-17 19:52:00.000000000 +0200
++++ /home/ubermensch/Makefile.modified	2026-07-10 14:31:39.756884750 +0200
+@@ -1,6 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0-or-later
+ 
+-obj-y      := applesmc/ sbs/
++obj-y      := applesmc/
+ KVER       ?= `uname -r`
+ KBASE      ?= /lib/modules/$(KVER)
+ KBUILD_DIR ?= $(KBASE)/build
+@@ -10,5 +10,4 @@
+ 
+ clean:
+ 	cd applesmc && make clean
+-	cd sbs && make clean
+ 	rm -f modules.order Module.symvers .modules.order.cmd .Module.symvers.cmd

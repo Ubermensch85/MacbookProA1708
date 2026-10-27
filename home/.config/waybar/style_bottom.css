@@ -1,0 +1,16 @@
+/* ============================================
+ Waybar Bottom Style - Nord-Arch Modern
+ ============================================ */
+
+@import "style.css";
+
+/* Sovrascrittura per la barra inferiore se necessario */
+#waybar > box {
+ margin-bottom: 4px; /* Un po' di spazio dal bordo inferiore */
+}
+
+#custom-window_title {
+ color: #ffffff;
+ font-weight: 600;
+ padding: 0 15px;
+}

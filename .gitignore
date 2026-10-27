@@ -1,0 +1,26 @@
+# File temporanei ed editor
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Log e cache
+*.log
+.cache/
+tmp/
+*.tmp
+
+# Credenziali e dati sensibili
+*.key
+*.pem
+*.token
+.git-credentials
+*history*
+*.bak*
+*.pacnew
+
+# Build artifacts
+*.o
+*.ko
+*.tar.gz
+*.tar.zst

@@ -1,0 +1,45 @@
+{
+    "name": "bottombar",
+    "layer": "top",
+    "position": "bottom",
+    "height": 34,
+    "margin-bottom": 4,
+    "margin-left": 8,
+    "margin-right": 8,
+    "spacing": 4,
+    "modules-left": [
+        "custom/command"
+    ],
+    "modules-center": [
+        "custom/window_title"
+    ],
+    "modules-right": [
+        "disk",
+        "custom/pacman"
+    ],
+    "custom/window_title": {
+        "exec": "hyprctl activewindow -j 2>/dev/null | jq -r 'if .class and .class != \"\" then \"[ \\(.class) ]\" else empty end'",
+        "interval": 1,
+        "format": "{}",
+        "escape": true
+    },
+    "custom/command": {
+        "format": "",
+        "on-click": "$HOME/scripts/rofi-power.sh",
+        "tooltip": false
+    },
+    "disk": {
+        "interval": 30,
+        "format": "SSD {percentage_used}%",
+        "path": "/",
+        "on-click": "xdg-open /"
+    },
+    "custom/pacman": {
+        "format": "PACMAN [{}]",
+        "interval": 60,
+        "exec": "checkupdates 2>/dev/null | wc -l | tr -d '\n' || echo 0",
+        "exec-if": "which checkupdates",
+        "on-click": "kitty --title fly-foot-write /home/ubermensch/.config/waybar/scripts/update_system.sh",
+        "signal": 8
+    }
+}

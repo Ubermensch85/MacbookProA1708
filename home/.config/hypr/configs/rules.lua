@@ -12,7 +12,20 @@ hl.window_rule({
     center = true,
 })
 
+-- ── Ignora richieste di maximize dalle finestre ──────────────────────────────
+hl.window_rule({
+    name           = "suppress-maximize-events",
+    match          = { class = ".*" },
+    suppress_event = "maximize",
+})
+
 -- ── fly-foot-write (updater) ─────────────────────────────────────────────────
+hl.window_rule({
+    match  = { initial_title = "^(fly-foot-write)$" },
+    float  = true,
+    size   = { 858, 534 },
+    center = true,
+})
 hl.window_rule({
     match  = { title = "^(fly-foot-write)$" },
     float  = true,
@@ -22,6 +35,12 @@ hl.window_rule({
 
 -- ── fly-kitty (quick floating terminal) ───────────────────────────────────────
 hl.window_rule({
+    match  = { initial_title = "^(fly-kitty)$" },
+    float  = true,
+    size   = { 900, 600 },
+    center = true,
+})
+hl.window_rule({
     match  = { title = "^(fly-kitty)$" },
     float  = true,
     size   = { 900, 600 },
@@ -29,6 +48,12 @@ hl.window_rule({
 })
 
 -- ── fly-foot-tiled (htop monitor) ─────────────────────────────────────────────
+hl.window_rule({
+    match  = { initial_title = "^(fly-foot-tiled)$" },
+    float  = true,
+    size   = { 900, 600 },
+    center = true,
+})
 hl.window_rule({
     match  = { title = "^(fly-foot-tiled)$" },
     float  = true,
@@ -54,6 +79,12 @@ hl.window_rule({
 })
 
 -- ── fly-kitty-info ───────────────────────────────────────────────────────────
+hl.window_rule({
+    match  = { class = "^(fly-kitty-info)$" },
+    float  = true,
+    size   = { 800, 650 },
+    center = true,
+})
 hl.window_rule({
     match  = { class = "^(fly-kitty-info)$", initial_title = "^(fly-kitty-info)$" },
     float  = true,

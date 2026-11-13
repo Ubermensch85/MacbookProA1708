@@ -35,7 +35,7 @@ hl.bind(mainMod .. " + N",               hl.dsp.exec_cmd("nemo"))
 hl.bind(mainMod .. " + A",               hl.dsp.exec_cmd("killall -SIGUSR1 waybar"))
 hl.bind(mainMod .. " + SHIFT + E",       hl.dsp.exec_cmd("$HOME/scripts/rofi-power.sh"))
 hl.bind(mainMod .. " + S",               hl.dsp.exec_cmd("hyprdvd --screensaver"))
-hl.bind(mainMod .. " + W",               hl.dsp.exec_cmd("~/scripts/gammastep.sh toggle"))
+hl.bind(mainMod .. " + W",               hl.dsp.exec_cmd("$HOME/scripts/gammastep.sh toggle"))
 hl.bind(mainMod .. " + I",               hl.dsp.exec_cmd("~/battery_tooltip.sh"))
 
 -- ── Sistema & alimentazione ───────────────────────────────────────────────────
@@ -80,7 +80,7 @@ end, { locked = true })
 
 hl.bind("switch:off:Lid Switch", function()
     hl.timer(function()
-        hl.dispatch(hl.dsp.exec_cmd("hyprctl keyword monitor 'eDP-1, 2560x1600@60, 0x0, 1.6'"))
+        hl.dispatch(hl.dsp.exec_cmd("hyprctl reload"))
         hl.dispatch(hl.dsp.exec_cmd("brightnessctl -d spi::kbd_backlight set 100%"))
     end, { timeout = 600, type = "oneshot" })
 end, { locked = true })

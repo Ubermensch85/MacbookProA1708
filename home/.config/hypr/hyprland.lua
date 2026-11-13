@@ -8,7 +8,15 @@ require("configs.rules")
 require("configs.binds")
 
 -- ── Monitor ───────────────────────────────────────────────────────────────────
-hl.monitor({ output = "eDP-1", mode = "2560x1600@60", position = "0x0",    scale = 1.6 })
+hl.monitor({
+    output              = "eDP-1",
+    mode                = "2560x1600@60",
+    position            = "0x0",
+    scale               = 1.6,
+    bitdepth            = 10,
+    cm                  = "edid",
+    supports_wide_color = 1,
+})
 hl.monitor({ output = "DP-2",  mode = "3840x2160@60", position = "1600x0", scale = 2.0 })
 -- Fallback per monitor non specificati
 hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })

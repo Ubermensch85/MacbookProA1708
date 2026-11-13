@@ -36,11 +36,9 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("gsettings set org.cinnamon.desktop.default-applications.terminal exec kitty")
 
     -- ── Display-dipendenti: aspetta che i monitor siano inizializzati ─────────
-    -- swaybg e waybar a 500/800 ms;
-    -- dispwin: carica il profilo colore calibrato specifico per MacBook Retina
+    -- swaybg e waybar a 500/800 ms (il profilo ICC è caricato nativamente in hyprland.lua)
     hl.timer(function()
         hl.exec_cmd("swaybg -i $HOME/Pictures/van.jpg -m fill")
-        hl.exec_cmd("dispwin -d 1 $HOME/.local/share/icc/macbook_retina.icc")
     end, { timeout = 500, type = "oneshot" })
 
     hl.timer(function()

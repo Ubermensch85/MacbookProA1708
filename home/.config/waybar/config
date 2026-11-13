@@ -75,9 +75,11 @@
     "custom/weather": {
         "format": "{}",
         "tooltip": true,
-        "interval": 3600,
+        "interval": 1800,
         "exec": "~/.config/waybar/script/weather.sh",
-        "return-type": "json"
+        "return-type": "json",
+        "on-click": "pkill -RTMIN+10 waybar",
+        "signal": 10
     },
     "temperature": {
         "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",

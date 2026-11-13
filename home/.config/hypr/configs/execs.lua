@@ -25,6 +25,7 @@ hl.on("hyprland.start", function()
     -- ── wob (OSD volume/luminosità) ───────────────────────────────────────────
     hl.exec_cmd("rm -f $XDG_RUNTIME_DIR/wob.wob && mkfifo $XDG_RUNTIME_DIR/wob.wob && tail -f $XDG_RUNTIME_DIR/wob.wob | wob")
     hl.exec_cmd("~/.local/bin/brightness-monitor.sh")
+    hl.exec_cmd("~/.local/bin/lid-monitor.sh")
 
     -- ── GTK ──────────────────────────────────────────────────────────────────
     hl.exec_cmd("gsettings set org.gnome.desktop.interface gtk-theme Adwaita")

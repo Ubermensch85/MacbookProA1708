@@ -74,13 +74,11 @@ hl.bind("XF86KbdBrightnessUp",   hl.dsp.exec_cmd("brightnessctl -d 'spi::kbd_bac
 -- ── Lid switch ───────────────────────────────────────────────────────────────
 -- switch:on = lid chiuso, switch:off = lid aperto
 hl.bind("switch:on:Lid Switch", function()
-    hl.dispatch(hl.dsp.exec_cmd("hyprctl keyword monitor 'eDP-1, disable'"))
-    hl.dispatch(hl.dsp.exec_cmd("brightnessctl -d spi::kbd_backlight set 0%"))
+    hl.dispatch(hl.dsp.dpms({ action = "off", monitor = "eDP-1" }))
+    hl.exec_cmd("brightnessctl -d spi::kbd_backlight set 0%")
 end, { locked = true })
 
 hl.bind("switch:off:Lid Switch", function()
-    hl.timer(function()
-        hl.dispatch(hl.dsp.exec_cmd("hyprctl reload"))
-        hl.dispatch(hl.dsp.exec_cmd("brightnessctl -d spi::kbd_backlight set 100%"))
-    end, { timeout = 600, type = "oneshot" })
+    hl.dispatch(hl.dsp.dpms({ action = "on", monitor = "eDP-1" }))
+    hl.exec_cmd("brightnessctl -d spi::kbd_backlight set 100%")
 end, { locked = true })

@@ -39,7 +39,7 @@ hl.on("hyprland.start", function()
     -- ── Display-dipendenti: aspetta che i monitor siano inizializzati ─────────
     -- swaybg e waybar a 500/800 ms (il profilo ICC è caricato nativamente in hyprland.lua)
     hl.timer(function()
-        hl.exec_cmd("swaybg -i $HOME/Pictures/van.jpg -m fill")
+        hl.exec_cmd("swaybg -i $HOME/Pictures/starry-material.png -m fill")
     end, { timeout = 500, type = "oneshot" })
 
     hl.timer(function()

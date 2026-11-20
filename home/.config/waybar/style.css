@@ -1,102 +1,94 @@
-/* ============================================
-   Waybar Style - Nord-Arch Modern
-   Color Palette: Official Nord (Arctic Ice & Polar Night)
-   Allineato geometricamente a Hyprland (MacBook Pro)
-   ============================================ */
+/* =========================================================================
+   Waybar Style - Nord + Blu Elettrico (Allineato a ThinkPad X280)
+   MacBookPro14,1 / Hyprland 0.57.2
+   ========================================================================= */
 
 * {
     all: unset;
-    font-family: "JetBrainsMono Nerd Font Propo", "JetBrainsMono Nerd Font", "Symbols Nerd Font", monospace;
+    font-family: "Noto Sans", "JetBrainsMono Nerd Font Propo", "Hack Nerd Font", sans-serif;
     font-size: 14px;
     font-weight: 500;
 }
 
-/* Container principale Nord */
+/* ── Finestra Principale Waybar ────────────────────────────────────────── */
 window#waybar {
-    background-color: rgba(46, 52, 64, 0.92); /* Nord0 Polar Night */
-    border-radius: 12px;                      /* Armonizzato con rounding = 10 di Hyprland */
-    border: 1px solid rgba(216, 222, 233, 0.12); /* Nord4 Snow Storm */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.30);
+    background-color: transparent;
     color: #ECEFF4;
 }
 
-/* Box interno */
+/* Box contenitore stile pillola Nord */
 #waybar > box {
-    padding: 2px 6px;
+    background-color: rgba(46, 52, 64, 0.94); /* Nord0 */
+    border-radius: 25px;
+    padding: 2px 8px;
+    border: 1px solid rgba(136, 192, 208, 0.25); /* Sottile bordo Nord8 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    margin: 2px 2px;
 }
 
-/* Moduli di sistema (CPU, RAM, SSD, TEMP) */
+/* ── Moduli Base ─────────────────────────────────────────────────────────── */
+#workspaces,
 #cpu,
 #memory,
-#temperature,
-#disk {
-    color: #D8DEE9; /* Nord4 */
-    padding: 0 5px;
-    margin: 0 1px;
-}
-
-/* Tutti i moduli base */
-#workspaces,
 #clock,
 #pulseaudio,
 #battery,
 #tray,
+#temperature,
+#disk,
 #backlight,
 #custom-arch,
-#custom-updates,
 #custom-pacman,
+#custom-updates,
 #custom-weather,
 #network,
-#network.vpn,
-#network.proton,
-#custom-gammastep,
-#custom-command,
-#custom-lock {
-    color: #ECEFF4; /* Nord6 */
-    padding: 0 8px;
+#custom-gammastep {
+    color: #ECEFF4;
+    padding: 0 10px;
     margin: 0 2px;
 }
 
-/* Colore d'accento: Nord8 Frost (Ice Blue) */
+/* Accent color blu elettrico per brand, updates e clock */
 #custom-arch,
 #clock,
-#custom-updates,
-#custom-pacman {
-    color: #88C0D0; /* Nord8 */
+#custom-pacman,
+#custom-updates {
+    color: #00A8FF;
     font-weight: 700;
 }
 
-/* Workspaces */
+/* ── Workspaces ──────────────────────────────────────────────────────────── */
 #workspaces {
-    margin-left: 2px;
+    margin-left: 4px;
 }
 
 #workspaces button {
-    padding: 2px 7px;
-    color: rgba(216, 222, 233, 0.55);
-    border-radius: 6px;
+    font-family: "DejaVu Serif";
+    padding: 2px 6px;
+    color: rgba(236, 239, 244, 0.55);
+    border-radius: 8px;
     margin: 0 2px;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    min-width: 20px;
+    min-width: 24px;
 }
 
 #workspaces button:hover {
-    background-color: rgba(216, 222, 233, 0.10);
+    background-color: rgba(255, 255, 255, 0.10);
     color: #ECEFF4;
 }
 
 #workspaces button.active {
-    color: #88C0D0; /* Nord8 Frost */
-    background-color: rgba(136, 192, 208, 0.15);
+    color: #00A8FF;
+    background-color: rgba(0, 168, 255, 0.18);
     font-weight: 700;
 }
 
 #workspaces button.urgent {
-    background-color: rgba(191, 97, 106, 0.25);
-    color: #BF616A; /* Nord11 Red */
+    background-color: rgba(191, 97, 106, 0.30);
+    color: #BF616A;
 }
 
-/* Hover reattivo sui moduli */
+/* ── Hover Effects Moduli di Sistema ─────────────────────────────────────── */
 #cpu:hover,
 #memory:hover,
 #pulseaudio:hover,
@@ -106,19 +98,17 @@ window#waybar {
 #disk:hover,
 #backlight:hover,
 #custom-weather:hover,
-#custom-gammastep:hover,
-#custom-command:hover,
-#custom-lock:hover {
-    color: #81A1C1; /* Nord9 Frost */
-    transition: color 0.15s ease;
+#custom-gammastep:hover {
+    color: #88C0D0;
+    transition: color 0.2s ease;
 }
 
-/* Tooltip Nord */
+/* ── Tooltips (GTK Popover Nord) ─────────────────────────────────────────── */
 tooltip {
-    background-color: rgba(59, 66, 82, 0.96); /* Nord1 Polar Night */
-    border-radius: 10px;
-    border: 1px solid rgba(216, 222, 233, 0.15);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.40);
+    background-color: rgba(46, 52, 64, 0.96);
+    border-radius: 12px;
+    border: 1px solid rgba(136, 192, 208, 0.30);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
     padding: 10px;
 }
 
@@ -128,7 +118,7 @@ tooltip label {
     padding: 4px 8px;
 }
 
-/* Tray */
+/* ── System Tray ─────────────────────────────────────────────────────────── */
 #tray {
     margin-right: 4px;
 }
@@ -139,48 +129,82 @@ tooltip label {
 
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
-    background-color: rgba(191, 97, 106, 0.25);
-    border-radius: 6px;
+    background-color: rgba(191, 97, 106, 0.30);
+    border-radius: 8px;
 }
 
-/* Stati speciali Batteria - Palette Nord Aurora */
-#battery.critical {
-    color: #BF616A; /* Nord11 Aurora Red */
-    animation: blink 1s infinite;
+/* ── Menu a Tendina (Tray Context Menu / GTK Popups) ─────────────────────── */
+menu,
+#tray menu {
+    background-color: rgba(46, 52, 64, 0.96);
+    border: 1px solid rgba(136, 192, 208, 0.30);
+    border-radius: 12px;
+    padding: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+menu menuitem,
+#tray menu menuitem {
+    background-color: transparent;
+    color: #ECEFF4;
+    padding: 6px 12px;
+    margin: 2px 0;
+    border-radius: 8px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+menu menuitem:hover,
+#tray menu menuitem:hover {
+    background-color: rgba(136, 192, 208, 0.20);
+    color: #88C0D0;
+}
+
+menu menuitem:disabled,
+#tray menu menuitem:disabled {
+    color: rgba(236, 239, 244, 0.35);
+}
+
+menu menuitem label,
+#tray menu menuitem label {
+    color: inherit;
+}
+
+menu separator,
+#tray menu separator {
+    background-color: rgba(136, 192, 208, 0.20);
+    min-height: 1px;
+    margin: 4px 6px;
+}
+
+/* ── Batteria (Stati Speciali) ───────────────────────────────────────────── */
+#battery.charging {
+    color: #A3BE8C;
 }
 
 #battery.warning {
-    color: #EBCB8B; /* Nord13 Aurora Yellow */
+    color: #EBCB8B;
 }
 
-#battery.charging {
-    color: #A3BE8C; /* Nord14 Aurora Green */
+#battery.critical {
+    color: #BF616A;
+    animation: blink 1s infinite;
 }
 
 @keyframes blink {
     0% { opacity: 1; }
-    50% { opacity: 0.45; }
+    50% { opacity: 0.4; }
     100% { opacity: 1; }
 }
 
-/* Custom modules specific styling */
-#custom-weather {
-    margin-right: 4px;
-    color: #88C0D0;
-}
-
+/* ── Gammastep ───────────────────────────────────────────────────────────── */
 #custom-gammastep {
-    margin-left: 2px;
+    margin-left: 4px;
 }
 
-#custom-command {
-    font-size: 14px;
+#custom-gammastep.attivo {
+    color: #EBCB8B;
 }
 
-/* Fallback per etichette non esplicitamente mappate */
-.modules-left > widget > label,
-.modules-center > widget > label,
-.modules-right > widget > label {
-    color: #ECEFF4;
-    padding: 0 8px;
+#custom-gammastep.nonattivo {
+    color: #00A8FF;
 }

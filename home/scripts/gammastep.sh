@@ -15,9 +15,9 @@ if command -v hyprsunset >/dev/null 2>&1; then
     fi
 
     if pgrep -x "hyprsunset" > /dev/null; then
-        echo " "
+        echo '{"text": "󰖔", "tooltip": "Filtro luce blu attivo", "class": "attivo"}'
     else
-        echo ""
+        echo '{"text": "󰖨", "tooltip": "Filtro luce blu disattivato", "class": "nonattivo"}'
     fi
     exit 0
 fi
@@ -34,7 +34,7 @@ if [[ $1 = "toggle" ]]; then
 fi
 
 if pgrep -x "gammastep" > /dev/null; then
-    echo " "
+    echo '{"text": "󰖔", "tooltip": "Filtro luce blu attivo", "class": "attivo"}'
 else
-    echo ""
+    echo '{"text": "󰖨", "tooltip": "Filtro luce blu disattivato", "class": "nonattivo"}'
 fi

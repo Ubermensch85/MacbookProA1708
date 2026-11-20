@@ -7,10 +7,17 @@ if command -v hyprsunset >/dev/null 2>&1; then
     if [[ $1 = "toggle" ]]; then
         if pgrep -x "hyprsunset" > /dev/null; then
             pkill -x "hyprsunset"
+            for _ in {1..20}; do
+                pgrep -x "hyprsunset" > /dev/null || break
+                sleep 0.05
+            done
         else
-            hyprsunset -t $TEMP >/dev/null 2>&1 &
+            setsid -f hyprsunset -t "$TEMP" >/dev/null 2>&1
+            for _ in {1..20}; do
+                pgrep -x "hyprsunset" > /dev/null && break
+                sleep 0.05
+            done
         fi
-        sleep 0.05
         pkill -SIGRTMIN+9 waybar 2>/dev/null || true
     fi
 
@@ -25,11 +32,18 @@ fi
 if [[ $1 = "toggle" ]]; then
     if pgrep -x "gammastep" > /dev/null; then
         pkill -x "gammastep"
+        for _ in {1..20}; do
+            pgrep -x "gammastep" > /dev/null || break
+            sleep 0.05
+        done
         hyprctl reload >/dev/null 2>&1 || true
     else
-        gammastep -O $TEMP 2>/dev/null &
+        setsid -f gammastep -O "$TEMP" >/dev/null 2>&1
+        for _ in {1..20}; do
+            pgrep -x "gammastep" > /dev/null && break
+            sleep 0.05
+        done
     fi
-    sleep 0.05
     pkill -SIGRTMIN+9 waybar 2>/dev/null || true
 fi
 
